@@ -16,56 +16,71 @@ const theme = createTheme({
 const array = [
   {
    
-    text: "Algo",
+    text: "Tomar agua",
+    completed: false,
+  },
+  {
+    
+    text: "Comer Frutas",
     completed: true,
   },
   {
     
-    text: "Comer",
+    text: "Beber cerveza",
     completed: true,
-  },
-  {
-   
-    text: "Beber",
-    completed: true,
-  },
-  {
-    
-    text: "Festejar campeonato mundial",
-    completed: true,
-  },
-  {
-   
-    text: "Preparar fernet",
-    completed: false,
-  },
-  {
-   
-    text: "Preparar fernet",
-    completed: false,
-  },
+  }
 ];
 
 function Home() {
 
+  
+const array = [
+  {
+   
+    text: "Tomar agua",
+    completed: false,
+  },
+  {
+    
+    text: "Comer Frutas",
+    completed: true,
+  },
+  {
+    
+    text: "Beber cerveza",
+    completed: true,
+  },
+  {
+    
+    text: "Otra cosa",
+    completed: true,
+  }
+];
+
   const [input , setInput] = useState();
-
-
+  const [modal, setModal] = useState(false);
+  
+  localStorage.setItem("task",JSON.stringify(array));
   return (
     <ThemeProvider theme={theme}>
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{
+      maHeight:"40rem"
+    }}>
     <Box  sx={{
       display:"flex",
       flexDirection:"column",
       alignItems:"center",
-      border:"solid black"
+      border:"solid black",
+      height:"100%"
+      
+      
     }}>
       <ToDoCounter toDos={array} />
       <ToDoSearch setInput={setInput}/>
-      <ToDoList toDos={array} inputSearch={input}/>
+      <ToDoList inputSearch={input}/>
     </Box>
-      <AddToDo/>
-      <AddModal toDos={array} />
+      <AddToDo modal={modal} setModal={setModal}/>
+  
     </Container>
     </ThemeProvider>
   );

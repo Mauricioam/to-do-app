@@ -4,20 +4,19 @@ import { ToDoItem } from "./ToDoItem";
 import { useEffect } from "react";
 import { handleSearch } from "../utils/handleSearch";
 
-function ToDoList({toDos , inputSearch}){
+function ToDoList({inputSearch}){
 
-      const [search, setSearch] = useState({});
-      const [list , setList] = useState();
+      const [list , setList] = useState(JSON.parse(localStorage.getItem("task")));
 
     useEffect(() => {
-        handleSearch(inputSearch,setList,toDos);
+        handleSearch(inputSearch,setList,list)
     },[inputSearch]);
-   console.log(list)
+    console.log(list);
     return (
         <Container sx={{
             margin:"1.5rem 0 3rem 0"
         }}>
-        {list.map((item,index) =>(
+        {list?.map((item,index) =>(
             <ToDoItem key={index} text={item.text} completed={item.completed} />
         ) )}
         

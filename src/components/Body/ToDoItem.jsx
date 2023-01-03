@@ -1,12 +1,8 @@
+import { useState } from "react";
 import { ListItem, List, Checkbox, IconButton, Container, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function ToDoItem({ text, completed }) {
-
-  const handleChecked = () => {
-
-
-  }
+function ToDoItem({ text }) {
 
   return (
     <>
@@ -15,7 +11,7 @@ function ToDoItem({ text, completed }) {
             minWidth:"100%",
         }}>
           <ListItem>
-            <Checkbox size="medium" onClick={handleChecked} />
+            <Checkbox size="medium"  />
             <Container>
             <Typography variant="h6">
             {text}
