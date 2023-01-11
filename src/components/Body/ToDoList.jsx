@@ -4,14 +4,12 @@ import { ToDoItem } from "./ToDoItem";
 import { useEffect } from "react";
 import { handleSearch } from "../utils/handleSearch";
 
-function ToDoList({inputSearch}){
+function ToDoList({inputSearch,setList,list}){
 
-      const [list , setList] = useState(JSON.parse(localStorage.getItem("task")));
-
+     
     useEffect(() => {
         handleSearch(inputSearch,setList,list)
     },[inputSearch]);
-    console.log(list);
     return (
         <Container sx={{
             margin:"1.5rem 0 3rem 0"

@@ -1,7 +1,7 @@
 import { ToDoCounter, ToDoSearch  } from "../components/Header/main";
 import { AddToDo , ToDoList , AddModal } from "../components/Body/main";
 import { Box, Container, createTheme, ThemeProvider } from '@mui/material/';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const theme = createTheme({
@@ -10,26 +10,6 @@ const theme = createTheme({
   }
 })
 
-
-
-
-const array = [
-  {
-   
-    text: "Tomar agua",
-    completed: false,
-  },
-  {
-    
-    text: "Comer Frutas",
-    completed: true,
-  },
-  {
-    
-    text: "Beber cerveza",
-    completed: true,
-  }
-];
 
 function Home() {
 
@@ -57,10 +37,13 @@ const array = [
   }
 ];
 
+  const [toDoTask, setToDoTask] = useState();
   const [input , setInput] = useState();
   const [modal, setModal] = useState(false);
-  
-  localStorage.setItem("task",JSON.stringify(array));
+  const [list , setList] = useState();
+ useEffect(() =>{
+    setList(JSON.parse(localStorage.getItem("task")));
+ },[list])
   return (
     <ThemeProvider theme={theme}>
     <Container maxWidth="sm" sx={{
@@ -77,9 +60,9 @@ const array = [
     }}>
       <ToDoCounter toDos={array} />
       <ToDoSearch setInput={setInput}/>
-      <ToDoList inputSearch={input}/>
+      <ToDoList inputSearch={input} setList={setList} list={list}/>
     </Box>
-      <AddToDo modal={modal} setModal={setModal}/>
+      <AddToDo modal={modal} setModal={setModal} setToDoTask={setToDoTask} toDoTask={toDoTask}/>
   
     </Container>
     </ThemeProvider>

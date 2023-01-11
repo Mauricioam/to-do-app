@@ -3,20 +3,25 @@ import { Button, IconButton, Modal, TextField, Typography } from "@mui/material"
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { Box, Container } from "@mui/system";
 import { handleModal } from "../utils/handleModal";
+import { handleAddtask } from "../utils/handleAddTask";
 
 
-function AddToDo({modal,setModal}){
+function AddToDo({modal,setModal,setToDoTask,toDoTask}){
 
+const handleSubmit = (e) => {
+e.preventDefault();
+let items = JSON.parse(localStorage.getItem("task"));
+if(toDoTask.length === 0){
+    console.log("Tiene que agregar una tarea")
+} else {
+items.push(toDoTask);
+localStorage.setItem("task",JSON.stringify(items));
+console.log(JSON.parse(localStorage.getItem("task")))
+}
+setModal(false);
+}
 
-    const [input, setInput] = useState();
-
-    const handleTask = (event) =>{
-            event.preventDefault();
-
-
-    }
-
-
+   
     return (
         <>
         <Container p="0" sx={{
@@ -42,7 +47,7 @@ function AddToDo({modal,setModal}){
             justifyContent:"center"
         }}
         >
-            <form >
+    
             <Box sx={{
                 border: "solid black",
                 padding:"3rem 7rem 3rem 7rem",
@@ -56,6 +61,7 @@ function AddToDo({modal,setModal}){
                  variant="outlined"
                  size="large"
                  placeholder="Add a new task..."
+                 onChange= {(e) => handleAddtask(e, setToDoTask)}
                  fullWidth
                  sx={{
                     margin:"0 5rem 0 5rem"
@@ -65,16 +71,18 @@ function AddToDo({modal,setModal}){
                     alignItems:"center"
                               
                 }}>
-                <Button variant="outlined" sx={{
+                <Button
+                onClick={handleSubmit}
+                variant="outlined" sx={{
                     padding:"0.5rem",
                     margin:"0.5rem"
-            }} type={"submit"}>Add</Button>
+            }} type={"submit"} >Add</Button>
                 <Button variant="outlined" sx={{
                     padding:"0.5rem"}} onClick={() => handleModal(modal,setModal)}>Cancel</Button>
                 </Box>
             
-            </Box>
-                </form>
+                </Box>
+             
         
 
         </Modal>
